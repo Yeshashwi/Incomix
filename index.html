@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Welcome to Incomix</h2>
+<p>
+    Incomix is a simple income tracking app for students and beginners.
+    You can register, log in, and track your earnings from different sources.
+</p>
+
+{% if not user %}
+    <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+    <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+{% else %}
+    <a href="{{ url_for('dashboard') }}" class="btn">Go to Dashboard</a>
+{% endif %}
+{% endblock %}

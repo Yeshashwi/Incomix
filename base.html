@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incomix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+        }
+        .navbar {
+            background: #1e88e5;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #1e88e5;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background: #555;
+        }
+        .input-group {
+            margin-bottom: 12px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .flash {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .flash-success { background: #c8e6c9; }
+        .flash-danger { background: #ffcdd2; }
+        .flash-warning { background: #fff9c4; }
+        .flash-info { background: #bbdefb; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table th, table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        table th {
+            background: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <strong>Incomix</strong>
+        </div>
+        <div>
+            {% if user %}
+                <span>Hi, {{ user.username }}</span>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash flash-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
